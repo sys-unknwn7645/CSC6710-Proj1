@@ -124,7 +124,7 @@ app.get('/testdb', (request, response) => {
     const db = dbService.getDbServiceInstance();
 
     
-    const result =  db.deleteById("14"); // call a DB function here, change it to the one you want
+    const result =  db.deleteById("10"); // call a DB function here, change it to the one you want
 
     result
     .then(data => response.json({data: data}))
