@@ -1,3 +1,4 @@
+<!-- Reference html, css and js file from https://www.geeksforgeeks.org/design-a-responsive-sliding-login-registration-form-using-html-css-javascript/ -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +14,7 @@
 <body>
     <header>
         <h1 class="heading">CSC6710 Project 1</h1>
-        <h3 class="title">Sliding Login & Registration Form</h3>
+        <h3 class="title">Login & Registration Form</h3>
     </header>
 
     <!-- container div -->
@@ -32,27 +33,27 @@
         <div class="form-section">
 
             <!-- login form -->
-             <form action="/Frontend/index.html" method="post">
+             <!-- <form action="/Frontend/index.html" method="post"> -->
                 <div class="login-box">
-                    <input type="email" 
-                           class="email ele" 
+                    <input type="userid" 
+                           class="userid ele" 
                            placeholder="youremail@email.com">
                     <input type="password"
                            class="password ele" 
                            placeholder="password">
-                    <button class="clkbtn">Login</button>
+                    <button id="log-in-btn" class="clkbtn">Login</button>
                 </div>
-             </form>
+             <!-- </form> -->
 
 
             <!-- signup form -->
-             <form action="/Frontend/index.html" method="post">
+             <!-- <form action="/Frontend/index.html" method="post"> -->
                 <div class="signup-box">
                     <input type="text" 
                            class="name ele" 
                            placeholder="Enter your name">
-                    <input type="email" 
-                           class="email ele" 
+                    <input type="userid" 
+                           class="userid ele" 
                            placeholder="youremail@email.com">
                     <input type="password" 
                            class="password ele" 
@@ -60,11 +61,11 @@
                     <input type="password" 
                            class="password ele" 
                            placeholder="Confirm password">
-                    <button class="clkbtn">Signup</button>
+                    <button id="sign-up-btn" class="clkbtn">Signup</button>
                 </div>
-             </form>
+             <!-- </form> -->
         </div>
     </div>
-    <script src="index2.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
