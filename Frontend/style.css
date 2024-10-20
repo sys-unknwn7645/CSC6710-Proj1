@@ -141,6 +141,13 @@ header {
     cursor: pointer;
 }
 
+#dob {
+    font-size: 10px;
+    border: none;
+    padding: 0%;
+    border: 0cap;
+}
+
 /* For Responsiveness of the page */
 
 @media screen and (max-width: 650px) {

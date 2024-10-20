@@ -1,15 +1,3 @@
-// const express = require('express');
-
-
-// const app = express();
-
-
-// // app.post("/login", async function(req,res){
-// //     const username = req.body.username;
-
-
-// // ; 
-// // });
 
 // when the login is clicked
 const logIn = document.querySelector('#log-in-btn');
@@ -34,23 +22,56 @@ logIn.onclick = function (){
             window.location.href='login.html';
         } else if (data['data']['0'].name === name) {
             window.location.href='index.html';
+            console.log("login success");
         } else {
             console.log("Wrong Password");
             window.location.href='login.html';
         }
     })
-    // .then()
+}
 
-    
-    // fetch('http://localhost:5000/insert', {
-    //     headers: {
-    //         'Content-type': 'application/json'
-    //     },
-    //     method: 'POST',
-    //     body: JSON.stringify({name: name})
-    // })
-    // .then(response => response.json())
-    // .then(data => insertRowIntoTable(data['data']));
+// when the register is clicked
+const signUp = document.querySelector('#sign-up-btn');
+signUp.onclick = function (){
+    const fnameInput = document.querySelector('.fname.ele');
+    const lnameInput = document.querySelector('.lname.ele');
+    const salaryInput = document.querySelector('.salary.ele');
+    const ageInput = document.querySelector('.age.ele');
+    const nameInput = document.querySelector('.signup-box .userid.ele');
+    const passInput = document.querySelector('.signup-box .password.ele');
+
+    const fname = fnameInput.value
+    const lname = lnameInput.value
+    const salary = salaryInput.value
+    const age = ageInput.value
+    const name = nameInput.value;
+    const password = passInput.value;
+
+    nameInput.value = "";
+    passInput.value = "";
+
+    console.log(fname)
+    console.log(lname)
+    console.log(age)
+    console.log(salary)
+    console.log(name)
+    console.log(password)
+
+    fetch('http://localhost:5000/insert', {
+        headers: {
+            'Content-type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            fname:fname,
+            lname: lname,
+            age: age,
+            salary:salary,
+            name: name,
+            pass: password
+        })
+    })
+    .then(response => response.json())
 }
 
 // Slider to switch between login and signup/registration page.

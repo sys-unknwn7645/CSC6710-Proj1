@@ -27,9 +27,28 @@ app.post('/insert', (request, response) => {
     // console.log(request.body); 
 
     const {name} = request.body;
+    
     const db = dbService.getDbServiceInstance();
 
     const result = db.insertNewName(name);
+ 
+    // note that result is a promise
+    result 
+    .then(data => response.json({data: data})) // return the newly added row to frontend, which will show it
+   // .then(data => console.log({data: data})) // debug first before return by response
+   .catch(err => console.log(err));
+});
+
+// only for registration
+app.post('/insertRgst', (request, response) => {
+    console.log("app: insert a row.");
+    // console.log(request.body); 
+
+    const {name,pass,age,salary,lname,fname} = request.body;
+    
+    const db = dbService.getDbServiceInstance();
+
+    const result = db.insertNewNameRgst(name,pass,age, salary,lname,fname);
  
     // note that result is a promise
     result 
