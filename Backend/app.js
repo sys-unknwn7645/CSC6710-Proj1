@@ -150,13 +150,6 @@ app.get('/testdb', (request, response) => {
     .catch(err => console.log(err));
 });
 
-
-  
-
-
-
-
-
 // set up the web server listener
 app.listen(process.env.PORT, 
     () => {
