@@ -122,26 +122,26 @@ class DbService{
    }
 
 // Added
-   async insertNewNameRgst(name,pass,age, salary,lname,fname){
+   async insertNewNameRgst(name, pass, age, salary, lname, fname){
       try{
          const dateAdded = new Date();
          // use await to call an asynchronous function
          const insertId = await new Promise((resolve, reject) => 
          {
-            const query = "INSERT INTO names (name, pass, date_added) VALUES (?, ?, ?,?,?,?,?);";
-            connection.query(query, [name,pass,age,salary,lname,fname, dateAdded], (err, result) => {
+            const query = "INSERT INTO Users (userid, upass, firstname, lastname, salary, age, registerday, signintime) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+            connection.query(query, [name, pass, fname, lname, parseFloat(salary), Number(age), dateAdded, dateAdded], (err, result) => {
                 if(err) reject(new Error(err.message));
                 else resolve(result.insertId);
             });
          });
          console.log(insertId);  // for debugging to see the result of select
          return{
-              id: insertId,
               name: name,
               pass: pass,
               salary: salary,
+              age: age,
               fname: fname,
-              lname:lname,
+              lname: lname,
               dateAdded: dateAdded
          }
       } catch(error){

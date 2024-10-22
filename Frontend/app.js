@@ -57,7 +57,7 @@ signUp.onclick = function (){
     console.log(name)
     console.log(password)
 
-    fetch('http://localhost:5000/insert', {
+    fetch('http://localhost:5000/insertRgst', {
         headers: {
             'Content-type': 'application/json'
         },

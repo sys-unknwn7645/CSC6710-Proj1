@@ -1,0 +1,10 @@
+CREATE TABLE Users(
+   userid VARCHAR(50) primary key,
+   firstname VARCHAR(50),
+   lastname VARCHAR(50),
+   salary FLOAT,
+   age INTEGER,
+   registerday DATE,
+   signintime DATETIME,
+    upass varchar(50)
+) 
