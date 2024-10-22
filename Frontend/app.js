@@ -12,6 +12,8 @@ logIn.onclick = function (){
     console.log(name)
     console.log(password)
 
+    const msg = document.getElementById("logmsg");
+
     fetch('http://localhost:5000/search/' + name)
     .then(response => response.json())
     // .then(data => console.log(data))
@@ -19,13 +21,14 @@ logIn.onclick = function (){
     .then( data =>{
         if(!data['data']['0']) {
             console.log("User Does Not Exist");
-            window.location.href='login.html';
-        } else if (data['data']['0'].name === name) {
-            window.location.href='index.html';
+            msg.innerText = "User Does Not Exist. Retry"
+        } else if (data['data']['0'].upass === password) {
+            window.location.href='search.html';
             console.log("login success");
+            msg.innerText = "Login Success"
         } else {
             console.log("Wrong Password");
-            window.location.href='login.html';
+            msg.innerText = "Wrong Password. Retry"
         }
     })
 }
@@ -57,6 +60,8 @@ signUp.onclick = function (){
     console.log(name)
     console.log(password)
 
+    const msg = document.getElementById("regmsg");
+
     fetch('http://localhost:5000/insertRgst', {
         headers: {
             'Content-type': 'application/json'
@@ -72,6 +77,11 @@ signUp.onclick = function (){
         })
     })
     .then(response => response.json())
+    .then(() => {
+        msg.innerText = "Registration Success";
+        console.log("Registration Successful");
+        window.location.href='search.html'
+    })
 }
 
 // Slider to switch between login and signup/registration page.
