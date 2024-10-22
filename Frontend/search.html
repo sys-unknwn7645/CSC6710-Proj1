@@ -1,0 +1,58 @@
+<a href="login.html" class="navigation-link">Log Out </a>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Search</title>
+        <!-- Link to search.css -->
+        <link rel="stylesheet" href="search.css">
+    </head>
+    
+<body>
+    <header>
+        <h1 class="heading">User Search</h1>
+        <h2 class="title">Search Existing Users</h2>
+    </header>
+    <div class="container">
+        <!-- Search User by Name Section -->
+        <div class="search-box">
+            <h3>Search Users by Name</h3>
+            <input type="text" id="searchFname" class="ele" placeholder="First Name">
+            <input type="text" id="searchLname" class="ele" placeholder="Last Name">
+            <button onclick="searchByName()" class="clkbtn">Search</button>
+        </div>
+
+        <!-- Search User by ID Section -->
+        <div class="search-id-box">
+            <h3>Search by ID</h3>
+            <input type="number" id="searchId" class="ele" placeholder="User ID">
+            <button onclick="searchById()" class="clkbtn">Search by ID</button>
+        </div>
+
+        <!-- Search by Salary Range Section -->
+        <div class="search-salary-box">
+            <h3>Search by Salary Range</h3>
+            <input type="number" id="minSalary" class="ele" placeholder="Min Salary">
+            <input type="number" id="maxSalary" class="ele" placeholder="Max Salary">
+            <button onclick="searchBySalary()" class="clkbtn">Search by Salary</button>
+        </div>
+
+        <!-- Search by Age Range Section -->
+        <div class="search-age-box">
+            <h3>Search by Age Range</h3>
+            <input type="number" id="minAge" class="ele" placeholder="Min Age">
+            <input type="number" id="maxAge" class="ele" placeholder="Max Age">
+            <button onclick="searchByAge()" class="clkbtn">Search by Age</button>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results" class="results-container">
+            <!-- Search results will appear here -->
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
