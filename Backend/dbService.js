@@ -242,10 +242,29 @@ class DbService{
                sqlQuery = 'Where age BETWEEN ? AND 9999'
             }
 
-           } else {
+           } else if (query1 == "byUserid") {
             sqlQuery = 'Where userid = ?;' // for by userid
             values.push(query2)
-           }
+           } else if (query1 === "byRgstDate") {
+
+            if (query2 != "empty") {
+               conditions.push('?');
+               values.push(query2);
+             }
+           
+            if (query3 != "empty") {
+            conditions.push('?');
+            values.push(query3);
+            }
+            
+            if(conditions.length > 1) {
+               sqlQuery = 'Where age BETWEEN ' + conditions.join(' AND ')
+            } else if (conditions.length == 1 && query2 == "empty") {
+               sqlQuery = 'Where age BETWEEN 0 AND ?'
+            } else if (conditions.length == 1 && query3 == "empty") {
+               sqlQuery = 'Where age BETWEEN ? AND 9999'
+            }
+         }
          
 
            const response = await new Promise((resolve, reject) => 

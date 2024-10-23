@@ -108,7 +108,7 @@ function searchByRegDate() {
       maxAge = "empty";
     } else {maxAge = maxAgeInput}
 
-  const searchType = "byAge";
+  const searchType = "byRgstDate";
   const searchVal = searchType + "/" + minAge + "/" + maxAge;
 
   console.log(`${apiUrl}/search2/${searchVal}`)
