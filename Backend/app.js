@@ -111,6 +111,24 @@ app.patch('/update',
      }
 );
 
+// Added for login time update
+app.patch('/updateLogT', 
+    (request, response) => {
+         console.log("app: update is called");
+         //console.log(request.body);
+         const{name} = request.body;
+
+         console.log(name);
+         const db = dbService.getDbServiceInstance();
+
+         const result = db.updateNameById2(name);
+
+         result.then(data => response.json({success: true}))
+         .catch(err => console.log(err)); 
+
+    }
+);
+
 // delete service
 app.delete('/delete/:id', 
      (request, response) => {     

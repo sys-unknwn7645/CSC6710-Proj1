@@ -22,10 +22,34 @@ logIn.onclick = function (){
         if(!data['data']['0']) {
             console.log("User Does Not Exist");
             msg.innerText = "User Does Not Exist. Retry"
+
         } else if (data['data']['0'].upass === password) {
             window.location.href='search.html';
             console.log("login success");
-            msg.innerText = "Login Success"
+            msg.innerText = "Login Success";
+
+            fetch('http://localhost:5000/updateLogT',
+                {
+                  headers: {
+                      'Content-type': 'application/json'
+                  },
+                  method: 'PATCH',
+                  body: JSON.stringify(
+                        {
+                          name: name
+                        }
+                  )
+                }
+          ) 
+          .then(response => response.json())
+          .then(data => {
+              if(data.success){
+                  console.log("login time updated");
+              }
+              else 
+                 debug("no update occurs");
+          })
+
         } else {
             console.log("Wrong Password");
             msg.innerText = "Wrong Password. Retry"

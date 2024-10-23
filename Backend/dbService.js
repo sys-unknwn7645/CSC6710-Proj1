@@ -220,6 +220,53 @@ class DbService{
          console.log(error);
       }
   }
+  async updateNameById(id, newName){
+      try{
+           console.log("dbService: ");
+           console.log(id);
+           console.log(newName);
+           id = parseInt(id, 10);
+           // use await to call an asynchronous function
+           const response = await new Promise((resolve, reject) => 
+               {
+                  const query = "UPDATE names SET name = ? WHERE id = ?;";
+                  connection.query(query, [newName, id], (err, result) => {
+                       if(err) reject(new Error(err.message));
+                       else resolve(result.affectedRows);
+                  });
+               }
+            );
+
+            // console.log(response);  // for debugging to see the result of select
+            return response === 1? true: false;
+      }  catch(error){
+         console.log(error);
+      }
+  }
+
+  async updateNameById2(newName){
+   try{
+        console.log("dbService: ");
+        console.log(newName);
+        const dateAdded = new Date();
+        // use await to call an asynchronous function
+        const response = await new Promise((resolve, reject) => 
+            {
+               const query = "UPDATE Users SET signintime = ? WHERE userid = ?;";
+               connection.query(query, [dateAdded, newName], (err, result) => {
+                    if(err) reject(new Error(err.message));
+                    else resolve(result.affectedRows);
+               });
+            }
+         );
+
+         // console.log(response);  // for debugging to see the result of select
+         return response === 1? true: false;
+   }  catch(error){
+      console.log(error);
+   }
+}
+
 }
 
 module.exports = DbService;
