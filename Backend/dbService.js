@@ -235,11 +235,11 @@ class DbService{
             }
             
             if(conditions.length > 1) {
-               sqlQuery = 'Where salary BETWEEN ' + conditions.join(' AND ')
+               sqlQuery = 'Where age BETWEEN ' + conditions.join(' AND ')
             } else if (conditions.length == 1 && query2 == "empty") {
-               sqlQuery = 'Where salary BETWEEN 0 AND ?'
+               sqlQuery = 'Where age BETWEEN 0 AND ?'
             } else if (conditions.length == 1 && query3 == "empty") {
-               sqlQuery = 'Where salary BETWEEN ? AND 9999'
+               sqlQuery = 'Where age BETWEEN ? AND 9999'
             }
 
            } else {

@@ -94,6 +94,32 @@ function searchByAge() {
     .catch(error => console.error('Error:', error));
 }
 
+// Search users by Registration range
+function searchByRegDate() {
+  const minAgeInput = document.getElementById('minAge').value;
+  const maxAgeInput = document.getElementById('maxAge').value;
+
+  let minAge, maxAge
+  if (!minAgeInput) {
+      minAge = "empty";
+    } else {minAge = minAgeInput}
+  
+    if (!maxAgeInput) {
+      maxAge = "empty";
+    } else {maxAge = maxAgeInput}
+
+  const searchType = "byAge";
+  const searchVal = searchType + "/" + minAge + "/" + maxAge;
+
+  console.log(`${apiUrl}/search2/${searchVal}`)
+
+  fetch(`${apiUrl}/search2/${searchVal}`)
+  .then(response => response.json())
+  // .then(data => console.log(data['data']))
+  .then(data => loadHTMLTable(data['data']))
+  .catch(error => console.error('Error:', error));
+}
+
 function loadHTMLTable(data){
   debug("index.js: loadHTMLTable called.");
 
