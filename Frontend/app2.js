@@ -21,7 +21,8 @@ function searchByName() {
 
     fetch(`${apiUrl}/search2/${searchVal}`)
     .then(response => response.json())
-    .then(data => console.log(data['data']))
+    // .then(data => console.log(data['data']))
+    .then(data => loadHTMLTable(data['data']))
     .catch(error => console.error('Error:', error));
 }
 
@@ -36,7 +37,8 @@ function searchById() {
 
     fetch(`${apiUrl}/search2/${searchVal}`)
     .then(response => response.json())
-    .then(data => console.log(data['data']))
+    // .then(data => console.log(data['data']))
+    .then(data => loadHTMLTable(data['data']))
     .catch(error => console.error('Error:', error));
 }
 
@@ -61,7 +63,8 @@ function searchBySalary() {
 
     fetch(`${apiUrl}/search2/${searchVal}`)
     .then(response => response.json())
-    .then(data => console.log(data['data']))
+    // .then(data => console.log(data['data']))
+    .then(data => loadHTMLTable(data['data']))
     .catch(error => console.error('Error:', error));
 }
 
@@ -86,6 +89,40 @@ function searchByAge() {
 
     fetch(`${apiUrl}/search2/${searchVal}`)
     .then(response => response.json())
-    .then(data => console.log(data['data']))
+    // .then(data => console.log(data['data']))
+    .then(data => loadHTMLTable(data['data']))
     .catch(error => console.error('Error:', error));
+}
+
+function loadHTMLTable(data){
+  debug("index.js: loadHTMLTable called.");
+
+  const table = document.querySelector('table tbody'); 
+  
+  if(data.length === 0){
+      table.innerHTML = "<tr><td class='no-data' colspan='5'>No Data</td></tr>";
+      return;
+  }
+
+  let tableHtml = "";
+  data.forEach(function ({userid, firstname}){
+       tableHtml += "<tr>";
+       tableHtml +=`<td>${userid}</td>`;
+       tableHtml +=`<td>${firstname}</td>`;
+       tableHtml += "</tr>";
+  });
+
+  table.innerHTML = tableHtml;
+}
+
+// this function is used for debugging only, and should be deleted afterwards
+function debug(data)
+{
+    fetch('http://localhost:5000/debug', {
+        headers: {
+            'Content-type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({debug: data})
+    })
 }

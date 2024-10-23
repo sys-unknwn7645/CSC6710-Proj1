@@ -15,6 +15,20 @@
         <h1 class="heading">User Search</h1>
         <h2 class="title">Search Existing Users</h2>
     </header>
+
+        <!-- Results Section -->
+        <div id="results" class="results-container">
+            <h2>Search Results</h2>
+            <!-- Search results will appear here -->
+            <table id="table">
+                <thead>
+                    <th>UserId</th>
+                    <th>Name</th>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
     <div class="container">
         <!-- Search User by Name Section -->
         <div class="search-box">
@@ -47,10 +61,6 @@
             <button onclick="searchByAge()" class="clkbtn">Search by Age</button>
         </div>
 
-        <!-- Results Section -->
-        <div id="results" class="results-container">
-            <!-- Search results will appear here -->
-        </div>
     </div>
 
     <script src="app2.js"></script>
