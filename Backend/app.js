@@ -92,6 +92,27 @@ app.get('/search/:name', (request, response) => { // we can debug by URL
     .catch(err => console.log(err));
 });
 
+// Added for searching for project criteria
+app.get('/search2/:query1/:query2/:query3', (request, response) => { // we can debug by URL
+    
+    const {query1, query2, query3} = request.params;
+    
+    console.log(query1);
+    console.log(query2);
+    console.log(query3);
+
+    const db = dbService.getDbServiceInstance();
+
+    let result;
+
+    result =  db.searchByName2(query1, query2, query3)
+
+
+    result
+    .then(data => response.json({data: data}))
+    .catch(err => console.log(err));
+});
+
 
 // update
 app.patch('/update', 

@@ -5,19 +5,29 @@ function searchByName() {
     const firstname = document.getElementById('searchFname').value;
     const lastname = document.getElementById('searchLname').value;
 
-    fetch(`${apiUrl}/search/user?firstname=${firstname}&lastname=${lastname}`)
+    const searchType = "byName";
+    const searchVal = searchType + "/" + firstname + "/" + lastname;
+
+    console.log(`${apiUrl}/search2/${searchVal}`)
+
+    fetch(`${apiUrl}/search2/${searchVal}`)
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => console.log(data['data']))
     .catch(error => console.error('Error:', error));
 }
 
 // Search user by ID
 function searchById() {
-    const id = document.getElementById('searchId').value;
+    const userid = document.getElementById('searchId').value;
 
-    fetch(`${apiUrl}/search/userid/${id}`)
+    const searchType = "byUserid";
+    const searchVal = searchType + "/" + userid + "/" + userid; // Had to do the double input in order to keep a single search.
+
+    console.log(`${apiUrl}/search2/${searchVal}`)
+
+    fetch(`${apiUrl}/search2/${searchVal}`)
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => console.log(data['data']))
     .catch(error => console.error('Error:', error));
 }
 
@@ -26,9 +36,14 @@ function searchBySalary() {
     const minSalary = document.getElementById('minSalary').value;
     const maxSalary = document.getElementById('maxSalary').value;
 
-    fetch(`${apiUrl}/search/salary?minSalary=${minSalary}&maxSalary=${maxSalary}`)
+    const searchType = "bySalary";
+    const searchVal = searchType + "/" + minSalary + "/" + maxSalary;
+
+    console.log(`${apiUrl}/search2/${searchVal}`)
+
+    fetch(`${apiUrl}/search2/${searchVal}`)
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => console.log(data['data']))
     .catch(error => console.error('Error:', error));
 }
 
@@ -37,8 +52,13 @@ function searchByAge() {
     const minAge = document.getElementById('minAge').value;
     const maxAge = document.getElementById('maxAge').value;
 
-    fetch(`${apiUrl}/search/age?minAge=${minAge}&maxAge=${maxAge}`)
+    const searchType = "byAge";
+    const searchVal = searchType + "/" + minAge + "/" + maxAge;
+
+    console.log(`${apiUrl}/search2/${searchVal}`)
+
+    fetch(`${apiUrl}/search2/${searchVal}`)
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => console.log(data['data']))
     .catch(error => console.error('Error:', error));
 }

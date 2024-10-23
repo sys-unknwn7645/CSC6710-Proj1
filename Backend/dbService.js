@@ -174,6 +174,43 @@ class DbService{
          }
    }
 
+   // Added this for searching
+   async searchByName2(query1, query2, query3){
+      try{
+           const dateAdded = new Date();
+           // use await to call an asynchronous function
+            
+           let sqlQuery
+           if (query1 === "byName") {
+            sqlQuery = 'firstname = ? OR lastname = ?;'
+           } else if (query1 === "bySalary") {
+            sqlQuery = 'salary BETWEEN ? AND ?;'
+           } else if (query1 === "byAge") {
+            sqlQuery = 'age BETWEEN ? AND ?;'
+           } else {
+            sqlQuery = 'userid = ? OR userid = ?;' // for by userid
+           }
+         
+
+           const response = await new Promise((resolve, reject) => 
+                {
+                   const query = "SELECT * FROM Users WHERE "+ sqlQuery;
+                   // const query = "SELECT * FROM names where name = ?;";
+                   connection.query(query, [query2, query3], (err, results) => {
+                       if(err) reject(new Error(err.message));
+                       else resolve(results);
+                   });
+                }
+           );
+
+           console.log(response);  // for debugging to see the result of select
+           return response;
+
+       }  catch(error){
+          console.log(error);
+       }
+   }
+
    async deleteRowById(id){
          try{
               id = parseInt(id, 10);
