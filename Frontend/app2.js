@@ -2,9 +2,18 @@ const apiUrl = 'http://localhost:5000';  // Adjust the backend URL as needed
 
 // Search users by name
 function searchByName() {
-    const firstname = document.getElementById('searchFname').value;
-    const lastname = document.getElementById('searchLname').value;
+    const firstnameInput = document.getElementById('searchFname').value;
+    const lastnameInput = document.getElementById('searchLname').value;
 
+    let firstname, lastname
+    if (!firstnameInput) {
+        firstname = "empty";
+      } else {firstname = firstnameInput}
+    
+      if (!lastnameInput) {
+        lastname = "empty";
+      } else {lastname = lastnameInput}
+     
     const searchType = "byName";
     const searchVal = searchType + "/" + firstname + "/" + lastname;
 
@@ -33,8 +42,17 @@ function searchById() {
 
 // Search users by salary range
 function searchBySalary() {
-    const minSalary = document.getElementById('minSalary').value;
-    const maxSalary = document.getElementById('maxSalary').value;
+    const minSalaryInput = document.getElementById('minSalary').value;
+    const maxSalaryInput = document.getElementById('maxSalary').value;
+
+    let minSalary, maxSalary
+    if (!minSalaryInput) {
+        minSalary = "empty";
+      } else {minSalary = minSalaryInput}
+    
+      if (!maxSalaryInput) {
+        maxSalary = "empty";
+      } else {maxSalary = maxSalaryInput}
 
     const searchType = "bySalary";
     const searchVal = searchType + "/" + minSalary + "/" + maxSalary;
@@ -49,8 +67,17 @@ function searchBySalary() {
 
 // Search users by age range
 function searchByAge() {
-    const minAge = document.getElementById('minAge').value;
-    const maxAge = document.getElementById('maxAge').value;
+    const minAgeInput = document.getElementById('minAge').value;
+    const maxAgeInput = document.getElementById('maxAge').value;
+
+    let minAge, maxAge
+    if (!minAgeInput) {
+        minAge = "empty";
+      } else {minAge = minAgeInput}
+    
+      if (!maxAgeInput) {
+        maxAge = "empty";
+      } else {maxAge = maxAgeInput}
 
     const searchType = "byAge";
     const searchVal = searchType + "/" + minAge + "/" + maxAge;

@@ -181,22 +181,78 @@ class DbService{
            // use await to call an asynchronous function
             
            let sqlQuery
+           const values = []
+           const conditions = []
+
            if (query1 === "byName") {
-            sqlQuery = 'firstname = ? OR lastname = ?;'
+
+            if (query2 != "empty") {
+               conditions.push('firstname = ?');
+               values.push(query2);
+             }
+           
+            if (query3 != "empty") {
+            conditions.push('lastname = ?');
+            values.push(query3);
+            }
+            
+            if(conditions.length > 1) {
+               sqlQuery = 'Where ' + conditions.join(' OR ')
+            } else if (conditions.length == 1 ) {
+               sqlQuery = 'Where ' + conditions
+            }
+            
            } else if (query1 === "bySalary") {
-            sqlQuery = 'salary BETWEEN ? AND ?;'
+
+            if (query2 != "empty") {
+               conditions.push('?');
+               values.push(query2);
+             }
+           
+            if (query3 != "empty") {
+            conditions.push('?');
+            values.push(query3);
+            }
+            
+            if(conditions.length > 1) {
+               sqlQuery = 'Where salary BETWEEN ' + conditions.join(' AND ')
+            } else if (conditions.length == 1 && query2 == "empty") {
+               sqlQuery = 'Where salary BETWEEN 0 AND ?'
+            } else if (conditions.length == 1 && query3 == "empty") {
+               sqlQuery = 'Where salary BETWEEN ? AND 9999'
+            }
+
            } else if (query1 === "byAge") {
-            sqlQuery = 'age BETWEEN ? AND ?;'
+
+            if (query2 != "empty") {
+               conditions.push('?');
+               values.push(query2);
+             }
+           
+            if (query3 != "empty") {
+            conditions.push('?');
+            values.push(query3);
+            }
+            
+            if(conditions.length > 1) {
+               sqlQuery = 'Where salary BETWEEN ' + conditions.join(' AND ')
+            } else if (conditions.length == 1 && query2 == "empty") {
+               sqlQuery = 'Where salary BETWEEN 0 AND ?'
+            } else if (conditions.length == 1 && query3 == "empty") {
+               sqlQuery = 'Where salary BETWEEN ? AND 9999'
+            }
+
            } else {
-            sqlQuery = 'userid = ? OR userid = ?;' // for by userid
+            sqlQuery = 'Where userid = ?;' // for by userid
+            values.push(query2)
            }
          
 
            const response = await new Promise((resolve, reject) => 
                 {
-                   const query = "SELECT * FROM Users WHERE "+ sqlQuery;
+                   const query = "SELECT * FROM Users "+ sqlQuery;
                    // const query = "SELECT * FROM names where name = ?;";
-                   connection.query(query, [query2, query3], (err, results) => {
+                   connection.query(query, values, (err, results) => {
                        if(err) reject(new Error(err.message));
                        else resolve(results);
                    });
