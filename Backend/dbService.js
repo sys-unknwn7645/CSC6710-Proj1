@@ -128,8 +128,8 @@ class DbService{
          // use await to call an asynchronous function
          const insertId = await new Promise((resolve, reject) => 
          {
-            const query = "INSERT INTO Users (userid, upass, firstname, lastname, salary, age, registerday, signintime) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-            connection.query(query, [name, pass, fname, lname, parseFloat(salary), Number(age), dateAdded, dateAdded], (err, result) => {
+            const query = "INSERT INTO Users (userid, upass, firstname, lastname, salary, age, registerday) VALUES (?, ?, ?, ?, ?, ?, ?);";
+            connection.query(query, [name, pass, fname, lname, parseFloat(salary), Number(age), dateAdded], (err, result) => {
                 if(err) reject(new Error(err.message));
                 else resolve(result.insertId);
             });
@@ -153,13 +153,38 @@ class DbService{
 
    async searchByName(name){
         try{
+
+            let sqlQuery
+            const values = []
+
              const dateAdded = new Date();
+             
+             const getLocalDate = () => {
+               const year = dateAdded.getFullYear();
+               const month = ('0' + (dateAdded.getMonth() + 1)).slice(-2);  // Ensure two digits for month
+               const day = ('0' + dateAdded.getDate()).slice(-2);           // Ensure two digits for day
+               return `${year}-${month}-${day}`;  // Format as 'YYYY-MM-DD'
+             };
+             const dateToday = dateAdded.toISOString().split('T')[0]
+             const localDate = getLocalDate();
+
              // use await to call an asynchronous function
+
+             if (name === "byNever") {
+               sqlQuery = "SELECT * FROM Users Where signintime IS NULL;"
+            } else if (name === "byRgstToday"){
+               sqlQuery = `SELECT * FROM Users Where registerday = ?;`
+               values.push(localDate)
+            } else {
+               sqlQuery = 'SELECT * FROM Users where userid = ?;'
+               values.push(name)
+            }
+
              const response = await new Promise((resolve, reject) => 
                   {
                      const query = "SELECT * FROM Users where userid = ?;";
                      // const query = "SELECT * FROM names where name = ?;";
-                     connection.query(query, [name], (err, results) => {
+                     connection.query(sqlQuery, values, (err, results) => {
                          if(err) reject(new Error(err.message));
                          else resolve(results);
                      });
@@ -235,18 +260,23 @@ class DbService{
             }
             
             if(conditions.length > 1) {
-               sqlQuery = 'Where salary BETWEEN ' + conditions.join(' AND ')
+               sqlQuery = 'Where age BETWEEN ' + conditions.join(' AND ')
             } else if (conditions.length == 1 && query2 == "empty") {
-               sqlQuery = 'Where salary BETWEEN 0 AND ?'
+               sqlQuery = 'Where age BETWEEN 0 AND ?'
             } else if (conditions.length == 1 && query3 == "empty") {
-               sqlQuery = 'Where salary BETWEEN ? AND 9999'
+               sqlQuery = 'Where age BETWEEN ? AND 9999'
             }
 
-           } else {
+           } else if (query1 == "byUserid") {
             sqlQuery = 'Where userid = ?;' // for by userid
             values.push(query2)
-           }
-         
+           } else if (query1 === "byRgstDate") {
+            values.push(query3);
+            sqlQuery = 'Where registerday > (SELECT registerday FROM Users WHERE userid = ?)'
+            } else if (query1 === "bySameDate") {
+               values.push(query3);
+               sqlQuery = 'Where registerday = (SELECT registerday FROM Users WHERE userid = ?)'
+            }
 
            const response = await new Promise((resolve, reject) => 
                 {
@@ -359,88 +389,6 @@ class DbService{
       console.log(error);
    }
 }
-
-//////////////////////////
-async searchRegisteredAfter(userid) {
-   try {
-       const response = await new Promise((resolve, reject) => {
-           const query = `
-               SELECT * FROM Users 
-               WHERE registerday > (SELECT registerday FROM Users WHERE userid = ?);
-           `;
-           connection.query(query, [userid], (err, results) => {
-               if (err) reject(new Error(err.message));
-               else resolve(results);
-           });
-       });
-
-       console.log(response); // For debugging to see the result of the query
-       return response;
-   } catch (error) {
-       console.log(error);
-   }
-}
-
-async searchNeverSignedIn() {
-   try {
-       const response = await new Promise((resolve, reject) => {
-           const query = `
-               SELECT * FROM Users 
-               WHERE signintime IS NULL;
-           `;
-           connection.query(query, (err, results) => {
-               if (err) reject(new Error(err.message));
-               else resolve(results);
-           });
-       });
-
-       console.log(response); // For debugging to see the result of the query
-       return response;
-   } catch (error) {
-       console.log(error);
-   }
-}
-async searchRegisteredSameDay(userid) {
-   try {
-       const response = await new Promise((resolve, reject) => {
-           const query = `
-               SELECT * FROM Users 
-               WHERE DATE(registerday) = (SELECT DATE(registerday) FROM Users WHERE userid = ?);
-           `;
-           connection.query(query, [userid], (err, results) => {
-               if (err) reject(new Error(err.message));
-               else resolve(results);
-           });
-       });
-
-       console.log(response); // For debugging to see the result of the query
-       return response;
-   } catch (error) {
-       console.log(error);
-   }
-}
-
-async searchRegisteredToday() {
-   try {
-       const response = await new Promise((resolve, reject) => {
-           const query = `
-               SELECT * FROM Users 
-               WHERE DATE(registerday) = CURDATE();
-           `;
-           connection.query(query, (err, results) => {
-               if (err) reject(new Error(err.message));
-               else resolve(results);
-           });
-       });
-
-       console.log(response); // For debugging to see the result of the query
-       return response;
-   } catch (error) {
-       console.log(error);
-   }
-}
-
-//////////////////////////
 
 }
 
