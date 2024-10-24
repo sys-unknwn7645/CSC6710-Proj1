@@ -9,6 +9,21 @@ CREATE TABLE Users(
     upass varchar(50)
 ) 
 
+-- Inserting example entries into the table
+
+INSERT INTO users (userid, firstname, lastname, salary, age, registerday, signintime, upass)
+VALUES
+('ShoyonLu', 'Shiyong', 'Lu', 100000, 50, '2024-10-21', '2024-10-21 09:15:33', '12345'),
+('Anik123', 'Anik', 'Tahabilder', 22000, 30, '2024-10-21', '2024-10-21 10:16:30', '1234567'),
+('johnDoe', 'John', 'Doe', 45000, 30, '2024-10-21', '2024-10-21 09:15:33', 'password123'),
+('janedoe', 'Jane', 'Doe', 55000, 28, '2024-10-22', '2024-10-22 10:45:50', 'password456'),
+('alexking', 'Alex', 'King', 30000, 40, '2024-10-20', '2024-10-20 12:00:00', 'qwerty123'),
+('mariasmith', 'Maria', 'Smith', 35000, 35, '2024-10-22', '2024-10-22 08:45:15', 'mypass789'),
+('roberthill', 'Robert', 'Hill', 28000, 42, '2024-10-23', '2024-10-23 14:22:10', 'hill2024'),
+('sarajones', 'Sara', 'Jones', 31000, 34, '2024-10-23', '2024-10-23 16:30:45', 'sjones4321'),
+('davidgreen', 'David', 'Green', 40000, 29, '2024-10-24', '2024-10-24 11:15:50', 'dgreen2024'),
+('lindaWhite', 'Linda', 'White', 25000, 32, '2024-10-24', '2024-10-24 15:50:30', 'whitepass1');
+
 
 -- 1. User Registration:
 INSERT INTO users (firstname, lastname, salary, age, pass)
