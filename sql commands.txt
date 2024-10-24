@@ -13,7 +13,7 @@ CREATE TABLE Users(
 
 INSERT INTO users (userid, firstname, lastname, salary, age, registerday, signintime, upass)
 VALUES
-('ShoyonLu', 'Shiyong', 'Lu', 100000, 50, '2024-10-21', '2024-10-21 09:15:33', '12345'),
+('ShiyonLu', 'Shiyong', 'Lu', 100000, 50, '2024-10-21', '2024-10-21 09:15:33', '12345'),
 ('Anik123', 'Anik', 'Tahabilder', 22000, 30, '2024-10-21', '2024-10-21 10:16:30', '1234567'),
 ('johnDoe', 'John', 'Doe', 45000, 30, '2024-10-21', '2024-10-21 09:15:33', 'password123'),
 ('janedoe', 'Jane', 'Doe', 55000, 28, '2024-10-22', '2024-10-22 10:45:50', 'password456'),
@@ -22,7 +22,13 @@ VALUES
 ('roberthill', 'Robert', 'Hill', 28000, 42, '2024-10-23', '2024-10-23 14:22:10', 'hill2024'),
 ('sarajones', 'Sara', 'Jones', 31000, 34, '2024-10-23', '2024-10-23 16:30:45', 'sjones4321'),
 ('davidgreen', 'David', 'Green', 40000, 29, '2024-10-24', '2024-10-24 11:15:50', 'dgreen2024'),
-('lindaWhite', 'Linda', 'White', 25000, 32, '2024-10-24', '2024-10-24 15:50:30', 'whitepass1');
+('lindaWhite', 'Linda', 'White', 25000, 32, '2024-10-24', '2024-10-24 15:50:30', 'whitepass1'),
+('lori123', 'Lori', 'Smith', 40000, 29, '2024-10-24', 'NULL', 'dgreen2024'),
+('bhushan123', 'Bhushan', 'Pawar', 450000, 36, '2024-10-24', 'NULL', 'bushan12345'),
+('janewoods', 'Jane', 'Woods', 25000, 32, '2024-10-24', 'NULL', 'whitepass1'),
+('sumaitab', 'Sumaita', 'Shorif', 22000, 26, '2024-10-24', 'NULL', '12345');
+
+
 
 
 -- 1. User Registration:
