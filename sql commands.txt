@@ -8,3 +8,53 @@ CREATE TABLE Users(
    signintime DATETIME,
     upass varchar(50)
 ) 
+
+
+-- 1. User Registration:
+INSERT INTO users (firstname, lastname, salary, age, pass)
+VALUES ('John', 'Doe', 50000, 28, 'hashedpassword');
+
+
+-- 2. User Sign-In (checking if the credentials are correct):
+SELECT * FROM users
+WHERE userid = ? AND pass = 'hashedpassword';
+
+
+-- 3. Search users by first and/or last name:
+SELECT * FROM users
+WHERE firstname = 'John' OR lastname = 'Doe';
+
+
+-- 4. Search users by userid:
+SELECT * FROM users
+WHERE userid = 1;
+
+
+-- 5. Search all users whose salary is between X and Y:
+SELECT * FROM users
+WHERE salary BETWEEN 30000 AND 60000;
+
+
+-- 6. Search all users whose ages are between X and Y:
+SELECT * FROM users
+WHERE age BETWEEN 25 AND 35;
+
+
+-- 7. Search users who registered after John (where John is the userid):
+SELECT * FROM users
+WHERE registerday > (SELECT registerday FROM users WHERE userid = 1);
+
+
+-- 8. Search users who never signed in (sign time is null):
+SELECT * FROM users
+WHERE signtime IS NULL;
+
+
+-- 9. Search users who registered on the same day that John registered (where John is the userid):
+SELECT * FROM users
+WHERE DATE(registerday) = (SELECT DATE(registerday) FROM users WHERE userid = 1);
+
+
+-- 10. Return the users who registered today:
+SELECT * FROM users
+WHERE DATE(registerday) = CURDATE();
