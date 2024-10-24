@@ -23,7 +23,12 @@
             <table id="table">
                 <thead>
                     <th>UserId</th>
-                    <th>Name</th>
+                    <th>First</th>
+                    <th>Last</th>
+                    <th>Salary</th>
+                    <th>Age</th>
+                    <th>Last Login</th>
+
                 </thead>
                 <tbody></tbody>
             </table>
@@ -40,11 +45,13 @@
         </div>
 
         <!-- Search User by ID Section -->
-         <!-- Covers 4 -->
+         <!-- Covers 4, 7 and 9-->
         <div class="search-id-box">
             <h3>Search by ID</h3>
             <input type="text" id="searchId" class="ele" placeholder="User ID">
             <button onclick="searchById()" class="clkbtn">Search by ID</button>
+            <button onclick="searchByRgstDate()" class="clkbtn">Registered After</button>
+            <button onclick="searchBySameDate()" class="clkbtn">Same Day User</button>
         </div>
 
         <!-- Search by Salary Range Section -->
@@ -65,28 +72,12 @@
             <button onclick="searchByAge()" class="clkbtn">Search by Age</button>
         </div>
 
-        <!-- Search User by Registration -->
-         <!-- Covers 7 and 9 -->
-        <div class="search-reg-box">
-            <h3>Search by Registration Date</h3>
-            <input type="text" id="searchByRegDate" class="ele" placeholder="User ID">
-            <input type="date" id="startDate" class="ele" placeholder="Start Date">
-            <input type="date" id="endDate" class="ele" placeholder="End Date">
-            <button onclick="searchByRegDate()" class="clkbtn">Search by User Register Date</button>
-        </div>
-
         <!-- Search Users Never Signed In -->
-         <!-- Covers item 8 -->
+         <!-- Covers item 8 & 10 -->
         <div class="search-never-box">
-            <h3>Search users who never signed in</h3>
-            <button onclick="searchNeverSignedIn()" class="clkbtn">Users Never Signed On</button>
-        </div>
-
-        <!-- Search Users Registered Today -->
-         <!-- Covers item 10 -->
-         <div class="search-today-box">
-            <h3>Search users who signed in Today</h3>
-            <button onclick="searchRgstToday()" class="clkbtn">Users Registered Today</button>
+            <h3>Other User Searches</h3>
+            <button onclick="searchNeverSignedIn()" class="clkbtn">Never Signed On</button>
+            <button onclick="searchRgstToday()" class="clkbtn">Registered Today</button>
         </div>
 
     </div>

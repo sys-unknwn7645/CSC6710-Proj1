@@ -94,23 +94,12 @@ function searchByAge() {
     .catch(error => console.error('Error:', error));
 }
 
-// Search users by Registration range
-// NOT COMPLETE
-function searchByRegDate() {
-  const minAgeInput = document.getElementById('minAge').value;
-  const maxAgeInput = document.getElementById('maxAge').value;
-
-  let minAge, maxAge
-  if (!minAgeInput) {
-      minAge = "empty";
-    } else {minAge = minAgeInput}
-  
-    if (!maxAgeInput) {
-      maxAge = "empty";
-    } else {maxAge = maxAgeInput}
+// Search users by Registration Date
+function searchByRgstDate() {
+  const userid = document.getElementById('searchId').value;
 
   const searchType = "byRgstDate";
-  const searchVal = searchType + "/" + minAge + "/" + maxAge;
+  const searchVal = searchType + "/" + userid + "/" + userid; // Had to do the double input in order to keep a single search.
 
   console.log(`${apiUrl}/search2/${searchVal}`)
 
@@ -119,12 +108,29 @@ function searchByRegDate() {
   // .then(data => console.log(data['data']))
   .then(data => loadHTMLTable(data['data']))
   .catch(error => console.error('Error:', error));
+
+}
+
+// Search users by Same Date REgistration
+function searchBySameDate() {
+  const userid = document.getElementById('searchId').value;
+
+  const searchType = "bySameDate";
+  const searchVal = searchType + "/" + userid + "/" + userid; // Had to do the double input in order to keep a single search.
+
+  console.log(`${apiUrl}/search2/${searchVal}`)
+
+  fetch(`${apiUrl}/search2/${searchVal}`)
+  .then(response => response.json())
+  // .then(data => console.log(data['data']))
+  .then(data => loadHTMLTable(data['data']))
+  .catch(error => console.error('Error:', error));
+
 }
 
 
 // Search users that have never signed on
 function searchNeverSignedIn() {
-
   const searchType = "byNever";
 
   console.log(`${apiUrl}/search/${searchType}`)
@@ -136,13 +142,10 @@ function searchNeverSignedIn() {
   .catch(error => console.error('Error:', error));
 }
 
-// Search users that have never signed on
+// Search users Registered today
 function searchRgstToday() {
-
   const searchType = "byRgstToday";
-  const dateAdded = new Date();
-  const dateToday = dateAdded.toISOString().split('T')[0]
-  console.log(dateToday)
+
   console.log(`${apiUrl}/search/${searchType}`)
 
   fetch(`${apiUrl}/search/${searchType}`)
@@ -152,6 +155,7 @@ function searchRgstToday() {
   .catch(error => console.error('Error:', error));
 }
 
+// Load data 
 function loadHTMLTable(data){
   debug("index.js: loadHTMLTable called.");
 
@@ -163,10 +167,14 @@ function loadHTMLTable(data){
   }
 
   let tableHtml = "";
-  data.forEach(function ({userid, firstname}){
+  data.forEach(function ({userid, firstname, lastname, salary,age, signintime}){
        tableHtml += "<tr>";
        tableHtml +=`<td>${userid}</td>`;
        tableHtml +=`<td>${firstname}</td>`;
+       tableHtml +=`<td>${lastname}</td>`;
+       tableHtml +=`<td>${salary}</td>`;
+       tableHtml +=`<td>${age}</td>`;
+       tableHtml +=`<td>${signintime}</td>`;
        tableHtml += "</tr>";
   });
 

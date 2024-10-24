@@ -171,7 +171,7 @@ class DbService{
              // use await to call an asynchronous function
 
              if (name === "byNever") {
-               sqlQuery = "SELECT * FROM Users Where signintime IS NOT NULL;"
+               sqlQuery = "SELECT * FROM Users Where signintime IS NULL;"
             } else if (name === "byRgstToday"){
                sqlQuery = `SELECT * FROM Users Where registerday = ?;`
                values.push(localDate)
@@ -271,26 +271,12 @@ class DbService{
             sqlQuery = 'Where userid = ?;' // for by userid
             values.push(query2)
            } else if (query1 === "byRgstDate") {
-
-            if (query2 != "empty") {
-               conditions.push('?');
-               values.push(query2);
-             }
-           
-            if (query3 != "empty") {
-            conditions.push('?');
             values.push(query3);
+            sqlQuery = 'Where registerday > (SELECT registerday FROM Users WHERE userid = ?)'
+            } else if (query1 === "bySameDate") {
+               values.push(query3);
+               sqlQuery = 'Where registerday = (SELECT registerday FROM Users WHERE userid = ?)'
             }
-            
-            if(conditions.length > 1) {
-               sqlQuery = 'Where age BETWEEN ' + conditions.join(' AND ')
-            } else if (conditions.length == 1 && query2 == "empty") {
-               sqlQuery = 'Where age BETWEEN 0 AND ?'
-            } else if (conditions.length == 1 && query3 == "empty") {
-               sqlQuery = 'Where age BETWEEN ? AND 9999'
-            }
-         }
-         
 
            const response = await new Promise((resolve, reject) => 
                 {
