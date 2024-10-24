@@ -45,15 +45,16 @@ header {
     border-radius: 20px;
     box-shadow: 8px 8px 20px rgb(128, 128, 128);
     text-align: center;  /* Center content inside */
+    margin-bottom: 10px
 }
 
 /* Styling for each section in the search page */
-.search-box, .search-id-box, .search-salary-box, .search-age-box {
+.search-box, .search-id-box, .search-salary-box, .search-age-box, .search-never-box {
     margin-bottom: 20px;
 }
 
 /* Heading for each section */
-.search-box h3, .search-id-box h3, .search-salary-box h3, .search-age-box h3 {
+.search-box h3, .search-id-box h3, .search-salary-box h3, .search-age-box h3, .search-never-box h3 {
     margin-bottom: 10px;
     font-weight: 600;
     text-align: left;  /* Align text to the left */
