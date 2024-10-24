@@ -95,6 +95,7 @@ function searchByAge() {
 }
 
 // Search users by Registration range
+// NOT COMPLETE
 function searchByRegDate() {
   const minAgeInput = document.getElementById('minAge').value;
   const maxAgeInput = document.getElementById('maxAge').value;
@@ -114,6 +115,37 @@ function searchByRegDate() {
   console.log(`${apiUrl}/search2/${searchVal}`)
 
   fetch(`${apiUrl}/search2/${searchVal}`)
+  .then(response => response.json())
+  // .then(data => console.log(data['data']))
+  .then(data => loadHTMLTable(data['data']))
+  .catch(error => console.error('Error:', error));
+}
+
+
+// Search users that have never signed on
+function searchNeverSignedIn() {
+
+  const searchType = "byNever";
+
+  console.log(`${apiUrl}/search/${searchType}`)
+
+  fetch(`${apiUrl}/search/${searchType}`)
+  .then(response => response.json())
+  // .then(data => console.log(data['data']))
+  .then(data => loadHTMLTable(data['data']))
+  .catch(error => console.error('Error:', error));
+}
+
+// Search users that have never signed on
+function searchRgstToday() {
+
+  const searchType = "byRgstToday";
+  const dateAdded = new Date();
+  const dateToday = dateAdded.toISOString().split('T')[0]
+  console.log(dateToday)
+  console.log(`${apiUrl}/search/${searchType}`)
+
+  fetch(`${apiUrl}/search/${searchType}`)
   .then(response => response.json())
   // .then(data => console.log(data['data']))
   .then(data => loadHTMLTable(data['data']))
