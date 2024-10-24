@@ -175,61 +175,6 @@ app.post('/debug', (request, response) => {
     return response.json({success: true});
 });   
 
-
-///////////////for implementing 7, 8, 9, 10
-app.get('/searchAfter/:userid', (request, response) => {
-    const { userid } = request.params;
-    console.log(`Searching users who registered after: ${userid}`);
-
-    const db = dbService.getDbServiceInstance();
-    
-    const result = db.searchRegisteredAfter(userid);
-
-    result
-        .then(data => response.json({ data: data }))
-        .catch(err => console.log(err));
-});
-
-app.get('/searchNeverSignedIn', (request, response) => {
-    console.log('Searching users who never signed in.');
-
-    const db = dbService.getDbServiceInstance();
-    
-    const result = db.searchNeverSignedIn();
-
-    result
-        .then(data => response.json({ data: data }))
-        .catch(err => console.log(err));
-});
-
-app.get('/searchSameDay/:userid', (request, response) => {
-    const { userid } = request.params;
-    console.log(`Searching users who registered on the same day as: ${userid}`);
-
-    const db = dbService.getDbServiceInstance();
-    
-    const result = db.searchRegisteredSameDay(userid);
-
-    result
-        .then(data => response.json({ data: data }))
-        .catch(err => console.log(err));
-});
-
-app.get('/searchRegisteredToday', (request, response) => {
-    console.log('Searching users who registered today.');
-
-    const db = dbService.getDbServiceInstance();
-    
-    const result = db.searchRegisteredToday();
-
-    result
-        .then(data => response.json({ data: data }))
-        .catch(err => console.log(err));
-});
-
-//////////////////////////////////////////////
-
-
 // debug function: use http://localhost:5000/testdb to try a DB function
 // should be deleted finally
 app.get('/testdb', (request, response) => {
