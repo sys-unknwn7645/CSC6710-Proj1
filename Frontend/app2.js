@@ -94,65 +94,68 @@ function searchByAge() {
     .catch(error => console.error('Error:', error));
 }
 
-///////////////////////////
-// Function to search users who registered after a certain user
-function searchAfterUser() {
-  const userId = document.getElementById('searchAfterUserId').value;
+// Search users by Registration Date
+function searchByRgstDate() {
+  const userid = document.getElementById('searchId').value;
 
-  fetch(`/api/users/searchAfter/${userId}`)
-      .then(response => response.json())
-      .then(data => displayResults(data))
-      .catch(error => console.error('Error:', error));
+  const searchType = "byRgstDate";
+  const searchVal = searchType + "/" + userid + "/" + userid; // Had to do the double input in order to keep a single search.
+
+  console.log(`${apiUrl}/search2/${searchVal}`)
+
+  fetch(`${apiUrl}/search2/${searchVal}`)
+  .then(response => response.json())
+  // .then(data => console.log(data['data']))
+  .then(data => loadHTMLTable(data['data']))
+  .catch(error => console.error('Error:', error));
+
 }
 
-// Function to search users who never signed in
+// Search users by Same Date REgistration
+function searchBySameDate() {
+  const userid = document.getElementById('searchId').value;
+
+  const searchType = "bySameDate";
+  const searchVal = searchType + "/" + userid + "/" + userid; // Had to do the double input in order to keep a single search.
+
+  console.log(`${apiUrl}/search2/${searchVal}`)
+
+  fetch(`${apiUrl}/search2/${searchVal}`)
+  .then(response => response.json())
+  // .then(data => console.log(data['data']))
+  .then(data => loadHTMLTable(data['data']))
+  .catch(error => console.error('Error:', error));
+
+}
+
+
+// Search users that have never signed on
 function searchNeverSignedIn() {
-  fetch('/api/users/neverSignedIn')
-      .then(response => response.json())
-      .then(data => displayResults(data))
-      .catch(error => console.error('Error:', error));
+  const searchType = "byNever";
+
+  console.log(`${apiUrl}/search/${searchType}`)
+
+  fetch(`${apiUrl}/search/${searchType}`)
+  .then(response => response.json())
+  // .then(data => console.log(data['data']))
+  .then(data => loadHTMLTable(data['data']))
+  .catch(error => console.error('Error:', error));
 }
 
-// Function to search users who registered on the same day as a certain user
-function searchSameDayUser() {
-  const userId = document.getElementById('searchSameDayUserId').value;
+// Search users Registered today
+function searchRgstToday() {
+  const searchType = "byRgstToday";
 
-  fetch(`/api/users/sameDayAs/${userId}`)
-      .then(response => response.json())
-      .then(data => displayResults(data))
-      .catch(error => console.error('Error:', error));
+  console.log(`${apiUrl}/search/${searchType}`)
+
+  fetch(`${apiUrl}/search/${searchType}`)
+  .then(response => response.json())
+  // .then(data => console.log(data['data']))
+  .then(data => loadHTMLTable(data['data']))
+  .catch(error => console.error('Error:', error));
 }
 
-// Function to return users who registered today
-function searchRegisteredToday() {
-  fetch('/api/users/registeredToday')
-      .then(response => response.json())
-      .then(data => displayResults(data))
-      .catch(error => console.error('Error:', error));
-}
-
-// Function to display search results in the table
-function displayResults(data) {
-  const tableBody = document.querySelector('#table tbody');
-  tableBody.innerHTML = ''; // Clear any previous results
-
-  data.forEach(user => {
-      const row = document.createElement('tr');
-      const useridCell = document.createElement('td');
-      const nameCell = document.createElement('td');
-
-      useridCell.textContent = user.userid;
-      nameCell.textContent = `${user.firstname} ${user.lastname}`;
-
-      row.appendChild(useridCell);
-      row.appendChild(nameCell);
-      tableBody.appendChild(row);
-  });
-}
-
-////////////////
-
-
+// Load data 
 function loadHTMLTable(data){
   debug("index.js: loadHTMLTable called.");
 
@@ -164,10 +167,14 @@ function loadHTMLTable(data){
   }
 
   let tableHtml = "";
-  data.forEach(function ({userid, firstname}){
+  data.forEach(function ({userid, firstname, lastname, salary,age, signintime}){
        tableHtml += "<tr>";
        tableHtml +=`<td>${userid}</td>`;
        tableHtml +=`<td>${firstname}</td>`;
+       tableHtml +=`<td>${lastname}</td>`;
+       tableHtml +=`<td>${salary}</td>`;
+       tableHtml +=`<td>${age}</td>`;
+       tableHtml +=`<td>${signintime}</td>`;
        tableHtml += "</tr>";
   });
 
