@@ -128,8 +128,8 @@ class DbService{
          // use await to call an asynchronous function
          const insertId = await new Promise((resolve, reject) => 
          {
-            const query = "INSERT INTO Users (userid, upass, firstname, lastname, salary, age, registerday, signintime) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-            connection.query(query, [name, pass, fname, lname, parseFloat(salary), Number(age), dateAdded, dateAdded], (err, result) => {
+            const query = "INSERT INTO Users (userid, upass, firstname, lastname, salary, age, registerday) VALUES (?, ?, ?, ?, ?, ?, ?);";
+            connection.query(query, [name, pass, fname, lname, parseFloat(salary), Number(age), dateAdded], (err, result) => {
                 if(err) reject(new Error(err.message));
                 else resolve(result.insertId);
             });
@@ -153,13 +153,38 @@ class DbService{
 
    async searchByName(name){
         try{
+
+            let sqlQuery
+            const values = []
+
              const dateAdded = new Date();
+             
+             const getLocalDate = () => {
+               const year = dateAdded.getFullYear();
+               const month = ('0' + (dateAdded.getMonth() + 1)).slice(-2);  // Ensure two digits for month
+               const day = ('0' + dateAdded.getDate()).slice(-2);           // Ensure two digits for day
+               return `${year}-${month}-${day}`;  // Format as 'YYYY-MM-DD'
+             };
+             const dateToday = dateAdded.toISOString().split('T')[0]
+             const localDate = getLocalDate();
+
              // use await to call an asynchronous function
+
+             if (name === "byNever") {
+               sqlQuery = "SELECT * FROM Users Where signintime IS NOT NULL;"
+            } else if (name === "byRgstToday"){
+               sqlQuery = `SELECT * FROM Users Where registerday = ?;`
+               values.push(localDate)
+            } else {
+               sqlQuery = 'SELECT * FROM Users where userid = ?;'
+               values.push(name)
+            }
+
              const response = await new Promise((resolve, reject) => 
                   {
                      const query = "SELECT * FROM Users where userid = ?;";
                      // const query = "SELECT * FROM names where name = ?;";
-                     connection.query(query, [name], (err, results) => {
+                     connection.query(sqlQuery, values, (err, results) => {
                          if(err) reject(new Error(err.message));
                          else resolve(results);
                      });
