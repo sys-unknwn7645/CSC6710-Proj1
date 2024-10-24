@@ -15,7 +15,7 @@
         <h1 class="heading">User Search</h1>
         <h2 class="title">Search Existing Users</h2>
     </header>
-    <div class="container">
+
         <!-- Results Section -->
         <div id="results" class="results-container">
             <h2>Search Results</h2>
@@ -23,21 +23,14 @@
             <table id="table">
                 <thead>
                     <th>UserId</th>
-                    <th>First</th>
-                    <th>Last</th>
-                    <th>Salary</th>
-                    <th>Age</th>
-                    <th>Last Login</th>
+                    <th>Name</th>
                 </thead>
                 <tbody></tbody>
             </table>
         </div>
 
-    </div>
-
     <div class="container">
         <!-- Search User by Name Section -->
-         <!-- Covers 3 -->
         <div class="search-box">
             <h3>Search Users by Name</h3>
             <input type="text" id="searchFname" class="ele" placeholder="First Name">
@@ -46,17 +39,13 @@
         </div>
 
         <!-- Search User by ID Section -->
-         <!-- Covers 4, 7 and 9-->
         <div class="search-id-box">
             <h3>Search by ID</h3>
             <input type="text" id="searchId" class="ele" placeholder="User ID">
             <button onclick="searchById()" class="clkbtn">Search by ID</button>
-            <button onclick="searchByRgstDate()" class="clkbtn">Registered After</button>
-            <button onclick="searchBySameDate()" class="clkbtn">Same Day User</button>
         </div>
 
         <!-- Search by Salary Range Section -->
-         <!-- Covers 5 -->
         <div class="search-salary-box">
             <h3>Search by Salary Range</h3>
             <input type="number" id="minSalary" class="ele" placeholder="Min Salary">
@@ -65,7 +54,6 @@
         </div>
 
         <!-- Search by Age Range Section -->
-         <!-- Covers 6 -->
         <div class="search-age-box">
             <h3>Search by Age Range</h3>
             <input type="number" id="minAge" class="ele" placeholder="Min Age">
@@ -73,13 +61,34 @@
             <button onclick="searchByAge()" class="clkbtn">Search by Age</button>
         </div>
 
-        <!-- Search Users Never Signed In -->
-         <!-- Covers item 8 & 10 -->
-        <div class="search-never-box">
-            <h3>Other User Searches</h3>
-            <button onclick="searchNeverSignedIn()" class="clkbtn">Never Signed On</button>
-            <button onclick="searchRgstToday()" class="clkbtn">Registered Today</button>
-        </div>
+
+<!-- Search After a Certain User Section -->
+<div class="search-after-user-box">
+    <h3>Search Users Who Registered After a Certain User</h3>
+    <input type="text" id="searchAfterUserId" class="ele" placeholder="Enter User ID">
+    <button onclick="searchAfterUser()" class="clkbtn">Search</button>
+</div>
+<br>
+<br>
+<!-- Search Users Who Never Signed In Section -->
+<div class="search-never-signedin-box">
+    <h3>Search Users Who Never Signed In</h3>
+    <button onclick="searchNeverSignedIn()" class="clkbtn">Search</button>
+</div>
+<br><br>
+<!-- Search Same Day as a Certain User Section -->
+<div class="search-same-day-box">
+    <h3>Search Users Who Registered on Same Day as a Certain User</h3>
+    <input type="text" id="searchSameDayUserId" class="ele" placeholder="Enter User ID">
+    <button onclick="searchSameDayUser()" class="clkbtn">Search</button>
+</div>
+<br><br>
+<!-- Search Users Registered Today Section -->
+<div class="search-registered-today-box">
+    <h3>Search Users Who Registered Today</h3>
+    <button onclick="searchRegisteredToday()" class="clkbtn">Search</button>
+</div>
+        
 
     </div>
 
