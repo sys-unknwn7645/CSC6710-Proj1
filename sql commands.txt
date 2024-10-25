@@ -33,12 +33,12 @@ VALUES
 
 -- 1. User Registration:
 INSERT INTO users (firstname, lastname, salary, age, pass)
-VALUES ('John', 'Doe', 50000, 28, 'hashedpassword');
+VALUES ('John', 'Doe', 50000, 28, 'password123');
 
 
 -- 2. User Sign-In (checking if the credentials are correct):
 SELECT * FROM users
-WHERE userid = ? AND pass = 'hashedpassword';
+WHERE userid = ? AND pass = 'password123';
 
 
 -- 3. Search users by first and/or last name:
@@ -48,7 +48,7 @@ WHERE firstname = 'John' OR lastname = 'Doe';
 
 -- 4. Search users by userid:
 SELECT * FROM users
-WHERE userid = 1;
+WHERE userid = johnDoe;
 
 
 -- 5. Search all users whose salary is between X and Y:
@@ -61,9 +61,9 @@ SELECT * FROM users
 WHERE age BETWEEN 25 AND 35;
 
 
--- 7. Search users who registered after John (where John is the userid):
+-- 7. Search users who registered after John (where johnDoe is the userid):
 SELECT * FROM users
-WHERE registerday > (SELECT registerday FROM users WHERE userid = 1);
+WHERE registerday > (SELECT registerday FROM users WHERE userid = johnDoe);
 
 
 -- 8. Search users who never signed in (sign time is null):
@@ -71,9 +71,9 @@ SELECT * FROM users
 WHERE signtime IS NULL;
 
 
--- 9. Search users who registered on the same day that John registered (where John is the userid):
+-- 9. Search users who registered on the same day that John registered (where johnDoe is the userid):
 SELECT * FROM users
-WHERE DATE(registerday) = (SELECT DATE(registerday) FROM users WHERE userid = 1);
+WHERE DATE(registerday) = (SELECT DATE(registerday) FROM users WHERE userid = johnDoe);
 
 
 -- 10. Return the users who registered today:
